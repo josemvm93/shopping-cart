@@ -18,6 +18,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CheckAuthEffects } from './store/auth/effects/check-auth.effects';
 import { authFeatureKey, reducer } from './store/auth/reducer/auth.reducer';
 import { SignoutEffects } from './store/auth/effects/sign-out.effects';
+import { CoreModule } from './core/core.module';
+import { FrameworkModule } from './framework/framework.module';
 
 registerLocaleData(en);
 
@@ -29,6 +31,8 @@ registerLocaleData(en);
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CoreModule,
+    FrameworkModule,
     LayoutModule,
     SharedModule,
     StoreModule.forRoot({}, {}),

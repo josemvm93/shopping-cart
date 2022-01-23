@@ -23,6 +23,9 @@
       "@core/*": [
         "./src/app/core/*"
       ],
+      "@framework/*": [
+        "./src/app/framework/*"
+      ],
       "@store/*": [
         "./src/app/store/*"
       ],
