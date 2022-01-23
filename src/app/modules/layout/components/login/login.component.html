@@ -1,6 +1,12 @@
 <div class="main" nz-row>
   <div nz-col nzSpan="12" nzOffset="8">
-    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <button nz-button class="login-form-button login-form-margin" nzType="primary"
+            (click)="signInGoogle()"
+    >
+      Log in
+    </button>
+
+    <!-- <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
       <nz-form-item>
         <nz-form-control nzErrorTip="The input is not valid E-mail!">
           <nz-input-group nzPrefixIcon="user">
@@ -28,6 +34,6 @@
       <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
       Or
       <a (click)="register()">register now!</a>
-    </form>
+    </form> -->
   </div>
 </div>

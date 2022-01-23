@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '@modules/home/home.component';
+import { HomeComponent } from '@modules/layout/components/home/home.component';
 import { Error404Component } from '@modules/layout/components/error404/error404.component';
 import { LayoutComponent } from '@modules/layout/layout.component';
 
@@ -9,12 +9,13 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: '', pathMatch: 'full', redirectTo: 'home'
+        path: '',
+        component: HomeComponent
       },
       {
-        path: 'home',
-        component: HomeComponent,
-        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+        path: 'auth',
+        loadChildren: () =>
+          import('./store/auth/auth.module').then((mod) => mod.AuthModule),
       },
       {
         path: 'shopping',

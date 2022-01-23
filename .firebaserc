@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shopping-4220a": {
+      "hosting": {
+        "shopping-cart": [
+          "shopping-4220a"
+        ]
+      }
+    }
+  }
+}

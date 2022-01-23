@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { loadCheckAuth } from '@app/store/auth/actions/check-auth.actions';
+import { loadSignInGoogle } from '@app/store/auth/actions/sign-in-google.actions';
+import { State } from '@app/store/auth/reducer/auth.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { getAuthLoading } from '../../../../store/auth/selectors/auth.selector';
 
 @Component({
   selector: 'app-login',
@@ -8,32 +12,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {}
+  public authLoading$: Observable<boolean>;
+
+  constructor(private authStore: Store<State>) {}
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
-    });
+    this.authStore.dispatch(loadCheckAuth());
+    this.authLoading$ = this.authStore.select(getAuthLoading);
   }
 
-  submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-    } else {
-      Object.values(this.validateForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
-  }
-
-  register(): void {
-    this.router.navigate(['../register'], { relativeTo: this.route });
+  signInGoogle(): void {
+    this.authStore.dispatch(loadSignInGoogle());
   }
 }

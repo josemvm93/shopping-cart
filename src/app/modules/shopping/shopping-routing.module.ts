@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BuyComponent } from './windows/buy/buy.component';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'buy'
-  },
-  {
-    path: 'buy',
-    loadChildren: () => import('./windows/buy/buy.module').then(m => m.BuyModule)
+    path: '',
+    component: BuyComponent
   }
 ];
 
