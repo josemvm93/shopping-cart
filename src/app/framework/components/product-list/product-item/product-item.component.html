@@ -1,1 +1,32 @@
-<p>product-item works!</p>
+<nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[sku, actionSetting]">
+  <nz-card-meta
+    [nzTitle]="item.name"
+    [nzDescription]="item.description"
+  ></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+  <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+</ng-template>
+<ng-template #coverTemplate>
+  <img alt="product-item" src="assets/imgs/product-item.png" />
+</ng-template>
+<ng-template #actionSetting>
+  <div nz-row>
+    <div nz-col>
+      <nz-input-number [(ngModel)]="demoValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+    </div>
+    <div nz-col>
+      <button nz-button class="login-form-button login-form-margin" nzType="primary"
+              (click)="addQuantity()"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #sku>
+  {{item.sku}}
+</ng-template>
+<ng-template #actionEllipsis>
+  <i nz-icon nzType="ellipsis"></i>
+</ng-template>

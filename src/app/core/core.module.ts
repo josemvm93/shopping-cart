@@ -3,26 +3,15 @@ import { CommonModule } from '@angular/common';
 import { SignInGuard } from './guards/sign-in.guard';
 import { SignOutGuard } from './guards/sign-out.guard';
 import { AuthService } from './services/auth.service';
+import { ProductsService } from './services/products.service';
 
+const guards = [SignInGuard, SignOutGuard];
 
-
-const guards = [
-  SignInGuard,
-  SignOutGuard
-];
-
-const services = [
-  AuthService
-];
+const services = [AuthService, ProductsService];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ],
-  providers: [
-    ...services,
-    ...guards
-  ]
+  imports: [CommonModule],
+  providers: [...services, ...guards],
 })
-export class CoreModule { }
+export class CoreModule {}

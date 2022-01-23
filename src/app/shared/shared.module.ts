@@ -72,7 +72,6 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
-
 const components = [];
 const directives = [];
 const pipes = [];
@@ -145,7 +144,10 @@ const nzZorroAntdModules = [
   NzWaveModule,
   NzResizableModule,
   NzPipesModule,
-  NzLayoutModule
+  NzLayoutModule,
+  NzCardModule,
+  NzAvatarModule,
+  NzInputNumberModule
 ];
 
 const modules = [
@@ -154,22 +156,12 @@ const modules = [
   ReactiveFormsModule,
   RouterModule,
   HttpClientModule,
-  ...nzZorroAntdModules
+  ...nzZorroAntdModules,
 ];
 
 @NgModule({
-  declarations: [
-    ...components,
-    ...directives,
-    ...pipes
-  ],
+  declarations: [...components, ...directives, ...pipes],
   imports: [...modules],
-  exports: [
-    ...modules,
-    ...components,
-    ...directives,
-    ...pipes
-  ]
+  exports: [...modules, ...components, ...directives, ...pipes],
 })
-export class SharedModule {
-}
+export class SharedModule {}
