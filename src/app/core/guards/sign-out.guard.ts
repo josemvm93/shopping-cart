@@ -26,7 +26,7 @@ export class SignOutGuard implements CanActivate {
           if (res) {
             return route;
           } else {
-            return this.router.navigate(['/shopping']);
+            return this.router.navigate(['/main']);
           }
         })
       );

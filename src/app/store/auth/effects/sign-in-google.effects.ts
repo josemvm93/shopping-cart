@@ -47,7 +47,7 @@ export class SignInGoogleEffects {
     () => {
       return this.actions$.pipe(
         ofType(loadSignInGoogleSuccess),
-        tap(() => this.router.navigate(['/shopping']))
+        tap(() => this.router.navigate(['/main']))
       );
     },
     {

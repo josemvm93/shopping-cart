@@ -18,7 +18,7 @@ const routes: Routes = [
           import('./store/auth/auth.module').then((mod) => mod.AuthModule),
       },
       {
-        path: 'shopping',
+        path: 'main',
         component: LayoutComponent,
         loadChildren: () => import('./modules/shopping/shopping.module').then(m => m.ShoppingModule)
       }

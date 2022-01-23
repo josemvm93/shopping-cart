@@ -48,7 +48,7 @@ export class CheckAuthEffects {
       return this.actions$.pipe(
         ofType(loadCheckAuthSuccess),
         tap(() => {
-          this.router.navigate(['/shopping']);
+          this.router.navigate(['/main']);
         })
       );
     },
