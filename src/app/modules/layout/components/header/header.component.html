@@ -1,0 +1,28 @@
+<div nz-row>
+  <div nz-col nzSpan="12" nzOffset="2">
+    Welcome: <i><b>{{getUserName(user$ | async)}}</b></i>
+  </div>
+  <div nz-col nzSpan="10">
+    <div nz-row>
+      <div nz-col nzSpan="6" nzOffset="8">
+        <img
+            nz-image
+            width="50px"
+            height="50px"
+            [nzSrc]="getPhotoUrl(user$ | async)"
+            alt=""
+        />
+      </div>
+      <div nz-col nzSpan="10">
+        <button nz-button class="login-form-button login-form-margin"
+            nzType="primary"
+            nzDanger
+            (click)="logOut()"
+        >
+          Log out
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
