@@ -6,7 +6,6 @@ export interface OrderProduct {
 }
 
 export interface OrderModel {
-  id: string;
   orderProduct: OrderProduct[];
   cart: CartModel;
 }
