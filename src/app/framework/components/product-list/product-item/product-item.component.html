@@ -1,12 +1,9 @@
 <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[sku, actionSetting]">
   <nz-card-meta
-    [nzTitle]="item.name"
-    [nzDescription]="item.description"
+    [nzTitle]="product.name"
+    [nzDescription]="product.description"
   ></nz-card-meta>
 </nz-card>
-<ng-template #avatarTemplate>
-  <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-</ng-template>
 <ng-template #coverTemplate>
   <img alt="product-item" src="assets/imgs/product-item.png" />
 </ng-template>
@@ -25,7 +22,7 @@
   </div>
 </ng-template>
 <ng-template #sku>
-  {{item.sku}}
+  {{product.sku}}
 </ng-template>
 <ng-template #actionEllipsis>
   <i nz-icon nzType="ellipsis"></i>
