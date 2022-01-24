@@ -5,7 +5,7 @@ import { ProductCartModel } from '@core/models/product-cart.model';
 
 export enum ProductListComponentMode {
   ONE,
-  TWO
+  TWO,
 }
 @Component({
   selector: 'app-product-list',

@@ -57,4 +57,13 @@ export class CartComponent implements OnInit {
       getCurrentProductCarts
     );
   }
+
+  getVerifyProducts(
+    products: ProductModel[],
+    currentProductCarts: ProductCartModel[]
+  ): ProductModel[] {
+    return currentProductCarts.map((c) => {
+      return products.find((p) => p.id === c.product_id);
+    });
+  }
 }

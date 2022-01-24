@@ -1,5 +1,5 @@
 <app-product-list
-    [products]="products$ | async"
+    [products]="getVerifyProducts(products$ | async, currentProductCarts$ | async)"
     [currentCart]="currentCart$ | async"
     [currentProductCarts]="currentProductCarts$ | async"
     [mode]="mode"

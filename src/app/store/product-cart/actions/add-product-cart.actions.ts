@@ -12,13 +12,6 @@ export const loadAddProductCart = createAction(
   }>()
 );
 
-export const loadAddProductCartSelected = createAction(
-  loadAddProductCartName,
-  props<{
-    selectedProducts: ProductModel[];
-  }>()
-);
-
 export const loadAddProductCartSuccess = createAction(
   loadAddProductCartName + ' Success',
   props<{

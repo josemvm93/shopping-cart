@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { loadAddProductCart } from '@app/store/product-cart/actions/add-product-cart.actions';
+import { loadDeleteProductCart } from '@app/store/product-cart/actions/delete-product-cart.actions';
 import { loadUpdateProductCart } from '@app/store/product-cart/actions/update-product-cart.actions';
 import { ProductCartState } from '@app/store/product-cart/reducers/product-cart.reducer';
-import {
-  getProductCarts,
-  getProductCartsLoading,
-} from '@app/store/product-cart/selectors/product-cart.selector';
+import { getProductCartsLoading } from '@app/store/product-cart/selectors/product-cart.selector';
 import { ProductCartModel } from '@core/models/product-cart.model';
 import { ProductModel } from '@core/models/product.model';
 import { Store } from '@ngrx/store';
@@ -40,6 +38,10 @@ export class ProductItemComponent implements OnInit {
     return this.product.description;
   }
 
+  get isModeTwo(): boolean {
+    return this.mode === ProductListComponentMode.TWO;
+  }
+
   constructor(private productCartStore: Store<ProductCartState>) {}
 
   ngOnInit(): void {}
@@ -69,5 +71,11 @@ export class ProductItemComponent implements OnInit {
     );
   }
 
-  deleteProduct(): void {}
+  deleteProduct(): void {
+    const productCart: ProductCartModel = {
+      ...this.productCartFound,
+    };
+    this.productCartStore.dispatch(loadDeleteProductCart({ productCart }));
+    this.loading$ = this.productCartStore.select(getProductCartsLoading);
+  }
 }
