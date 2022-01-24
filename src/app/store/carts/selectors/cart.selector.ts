@@ -13,12 +13,12 @@ export const getCarts = createSelector(
   cartAdapter.getSelectors().selectAll
 );
 
-export const getLoading = createSelector(
+export const getCartsLoading = createSelector(
   cartFeatureSelector,
   (state) => state.loading
 );
 
-export const getError = createSelector(
+export const getCartsError = createSelector(
   cartFeatureSelector,
   (state) => state.error
 );

@@ -19,11 +19,9 @@ export class GetProductCartEffects {
   public getProductCart$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadGetProductCart),
-      mergeMap(({ productCart }) => {
-        return this.productCartService.getProductCart(productCart.id).pipe(
-          map((productCartTmp) =>
-            loadGetProductCartSuccess({ productCart: productCartTmp })
-          ),
+      mergeMap(() => {
+        return this.productCartService.getProductCarts().pipe(
+          map(() => loadGetProductCartSuccess()),
           catchError((e) => of(loadGetProductCartFailure({ error: `${e}` })))
         );
       })

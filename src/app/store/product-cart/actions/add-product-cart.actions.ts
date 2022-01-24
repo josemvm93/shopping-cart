@@ -1,4 +1,5 @@
 import { ProductCartModel } from '@core/models/product-cart.model';
+import { ProductModel } from '@core/models/product.model';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
@@ -8,6 +9,13 @@ export const loadAddProductCart = createAction(
   loadAddProductCartName,
   props<{
     productCart: ProductCartModel;
+  }>()
+);
+
+export const loadAddProductCartSelected = createAction(
+  loadAddProductCartName,
+  props<{
+    selectedProducts: ProductModel[];
   }>()
 );
 

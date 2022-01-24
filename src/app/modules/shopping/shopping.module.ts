@@ -13,8 +13,30 @@ import { CoreModule } from '@core/core.module';
 import { ShopComponent } from './windows/shop/shop.component';
 import { FrameworkModule } from '../../framework/framework.module';
 import { CartComponent } from './windows/cart/cart.component';
-import { GetPendingCartEffects } from '@app/store/carts/effects/get-pending-cart.effects';
-import { cartFeatureKey, cartReducer } from '@app/store/carts/reducers/cart.reducer';
+import { GetCurrentCartEffects } from '@app/store/carts/effects/get-current-cart.effects';
+import {
+  cartFeatureKey,
+  cartReducer,
+} from '@app/store/carts/reducers/cart.reducer';
+import {
+  productCartFeatureKey,
+  productCartReducer,
+} from '@app/store/product-cart/reducers/product-cart.reducer';
+import {
+  currentCartFeatureKey,
+  currentCartReducer,
+} from '@app/store/carts/reducers/current-cart.reducer';
+import { GetProductCartEffects } from '@app/store/product-cart/effects/get-product-cart.effects';
+import { AddProductCartEffects } from '@app/store/product-cart/effects/add-product-cart.effects';
+import { GetCurrentProductCartEffects } from '@app/store/product-cart/effects/get-current-product-cart.effects';
+import {
+  currentProductCartFeatureKey,
+  currentProductCartReducer,
+} from '@app/store/product-cart/reducers/current-product-cart.reducer';
+import { UpdateProductCartEffects } from '@app/store/product-cart/effects/update-product-cart.effects';
+import { DeleteProductCartEffects } from '@app/store/product-cart/effects/delete-product-cart.effects';
+import { AddCartEffects } from '@app/store/carts/effects/add-cart.effects';
+import { UpdateCartEffects } from '@app/store/carts/effects/update-cart.effects';
 
 @NgModule({
   declarations: [ShopComponent, CartComponent],
@@ -24,9 +46,27 @@ import { cartFeatureKey, cartReducer } from '@app/store/carts/reducers/cart.redu
     SharedModule,
     CoreModule,
     FrameworkModule,
-    EffectsModule.forFeature([GetProductsEffects, GetPendingCartEffects]),
     StoreModule.forFeature(productsFeatureKey, productReducer),
-    StoreModule.forFeature(cartFeatureKey, cartReducer)
+    StoreModule.forFeature(cartFeatureKey, cartReducer),
+    StoreModule.forFeature(productCartFeatureKey, productCartReducer),
+    StoreModule.forFeature(currentCartFeatureKey, currentCartReducer),
+    StoreModule.forFeature(
+      currentProductCartFeatureKey,
+      currentProductCartReducer
+    ),
+    EffectsModule.forFeature([
+      AddCartEffects,
+      UpdateCartEffects,
+      GetCurrentCartEffects,
+
+      GetProductsEffects,
+
+      GetProductCartEffects,
+      AddProductCartEffects,
+      UpdateProductCartEffects,
+      DeleteProductCartEffects,
+      GetCurrentProductCartEffects,
+    ]),
   ],
 })
 export class ShoppingModule {}

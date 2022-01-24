@@ -1,4 +1,5 @@
 import { ProductCartModel } from '@core/models/product-cart.model';
+import { ProductModel } from '@core/models/product.model';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import {
@@ -6,6 +7,11 @@ import {
   loadAddProductCartFailure,
   loadAddProductCartSuccess,
 } from '../actions/add-product-cart.actions';
+import {
+  loadDeleteProductCart,
+  loadDeleteProductCartSuccess,
+  loadDeleteProductCartFailure,
+} from '../actions/delete-product-cart.actions';
 import {
   loadGetProductCart,
   loadGetProductCartFailure,
@@ -17,12 +23,11 @@ import {
   loadUpdateProductCartSuccess,
 } from '../actions/update-product-cart.actions';
 
-export const cartFeatureKey = 'cart';
+export const productCartFeatureKey = 'productCart';
 
 export interface ProductCartState extends EntityState<ProductCartModel> {
   loading: boolean;
   error: string | null;
-  cart: ProductCartModel;
 }
 
 export const productCartAdapter: EntityAdapter<ProductCartModel> =
@@ -33,13 +38,12 @@ const defaultState: ProductCartState = {
   entities: {},
   loading: false,
   error: null,
-  cart: null,
 };
 
 export const initialState: ProductCartState =
   productCartAdapter.getInitialState(defaultState);
 
-export const cartReducer = createReducer(
+export const productCartReducer = createReducer(
   initialState,
   // Add ProductCart
   on(loadAddProductCart, (state) => ({ ...state, loading: true })),
@@ -64,16 +68,13 @@ export const cartReducer = createReducer(
     ...state,
     loading: false,
     error: action.error,
+  })),
+  // Delete ProductCart
+  on(loadDeleteProductCart, (state) => ({ ...state, loading: true })),
+  on(loadDeleteProductCartSuccess, (state) => ({ ...state, loading: false })),
+  on(loadDeleteProductCartFailure, (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.error,
   }))
-
-  // // ProductCart with status pending
-  // on(loadGetPendingProductCart, (state) => ({ ...state, loading: true })),
-  // on(loadGetPendingProductCartSuccess, (state, action) =>
-  //   cartAdapter.setOne(action.cart, { ...state, loading: false })
-  // ),
-  // on(loadGetPendingProductCartFailure, (state, action) => ({
-  //   ...state,
-  //   loading: false,
-  //   error: action.error,
-  // })),
 );

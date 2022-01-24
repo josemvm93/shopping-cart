@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ProductCartModel } from '@core/models/product-cart.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,20 @@ import { map } from 'rxjs/operators';
 export class ProductCartService {
   readonly path = 'products-carts';
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private cartService: CartService
+  ) {}
 
-  public getProductCart(cartId: string): Observable<ProductCartModel> {
+  public getCurrentProductCarts(): Observable<ProductCartModel[]> {
+    return this.cartService.getCurrentCart().pipe(
+      switchMap((cart) => {
+        return this.getProductCartsByCart(cart.id);
+      })
+    );
+  }
+
+  public getProductCartsByCart(cartId: string): Observable<ProductCartModel[]> {
     return this.firestore
       .collection<ProductCartModel>(this.path, (ref) =>
         ref.where('cart_id', '==', cartId)
@@ -20,8 +32,8 @@ export class ProductCartService {
       .snapshotChanges()
       .pipe(
         map((querySnapshot) => {
-          if (querySnapshot.length === 1) {
-            const payloadDoc = querySnapshot[0].payload.doc;
+          return querySnapshot.map((docRef) => {
+            const payloadDoc = docRef.payload.doc;
             const data = payloadDoc.data();
             const productCartModel: ProductCartModel = {
               id: payloadDoc.id,
@@ -30,8 +42,29 @@ export class ProductCartService {
               quantity: data.quantity,
             };
             return productCartModel;
-          }
-          return null;
+          });
+        })
+      );
+  }
+
+  public getProductCarts(): Observable<ProductCartModel[]> {
+    return this.firestore
+      .collection<ProductCartModel>(this.path, (ref) =>
+        ref.orderBy('id', 'desc')
+      )
+      .snapshotChanges()
+      .pipe(
+        map((querySnapshot) => {
+          return querySnapshot.map((doc) => {
+            const data = doc.payload.doc.data();
+            const productCart: ProductCartModel = {
+              id: doc.payload.doc.id,
+              cart_id: data.cart_id,
+              product_id: data.product_id,
+              quantity: data.quantity,
+            };
+            return productCart;
+          });
         })
       );
   }
@@ -50,27 +83,4 @@ export class ProductCartService {
   public async deleteProductCart(productCart: ProductCartModel): Promise<void> {
     await this.firestore.collection(this.path).doc(productCart.id).delete();
   }
-
-  // public getByCartId(cartId: string): Observable<ProductCartModel[]> {
-  //   return this.firestore
-  //     .collection<ProductCartModel>(this.path, (ref) =>
-  //       ref.where('cart_id', '==', cartId)
-  //     )
-  //     .snapshotChanges()
-  //     .pipe(
-  //       map((querySnapshot) =>
-  //         querySnapshot.map((doc) => {
-  //           const payloadDoc = doc.payload.doc;
-  //           const data = payloadDoc.data();
-  //           const productCartModel: ProductCartModel = {
-  //             id: payloadDoc.id,
-  //             product_id: data.product_id,
-  //             cart_id: data.cart_id,
-  //             quantity: data.quantity,
-  //           };
-  //           return productCartModel;
-  //         })
-  //       )
-  //     );
-  // }
 }

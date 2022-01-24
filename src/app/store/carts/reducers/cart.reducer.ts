@@ -2,11 +2,6 @@ import { CartModel } from '@core/models/cart.model';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import {
-  loadGetPendingCart,
-  loadGetPendingCartSuccess,
-  loadGetPendingCartFailure,
-} from '../actions/get-pending-cart.actions';
-import {
   loadAddCart,
   loadAddCartFailure,
   loadAddCartSuccess,
@@ -39,16 +34,6 @@ export const initialState: CartState =
 
 export const cartReducer = createReducer(
   initialState,
-  // Cart with status pending
-  on(loadGetPendingCart, (state) => ({ ...state, loading: true })),
-  on(loadGetPendingCartSuccess, (state, action) =>
-    cartAdapter.setOne(action.cart, { ...state, loading: false })
-  ),
-  on(loadGetPendingCartFailure, (state, action) => ({
-    ...state,
-    loading: false,
-    error: action.error,
-  })),
   // Add Cart
   on(loadAddCart, (state) => ({ ...state, loading: true })),
   on(loadAddCartSuccess, (state) => ({ ...state, loading: false })),

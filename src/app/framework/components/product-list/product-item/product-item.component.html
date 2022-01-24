@@ -14,9 +14,11 @@
     </div>
     <div nz-col>
       <button nz-button class="login-form-button login-form-margin" nzType="primary"
+              [disabled]="loading$ | async"
               (click)="addToCart()"
       >
-        Add
+        <nz-spin *ngIf="(loading$ | async)" nzSimple></nz-spin>
+        <span *ngIf="!(loading$ | async)">Add</span>
       </button>
     </div>
   </div>

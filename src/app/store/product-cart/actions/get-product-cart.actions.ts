@@ -7,15 +7,12 @@ const loadGetProductCartName = '[ProductCart] Load Get ProductCart';
 export const loadGetProductCart = createAction(
   loadGetProductCartName,
   props<{
-    productCart: ProductCartModel;
+    productCart: ProductCartModel[];
   }>()
 );
 
 export const loadGetProductCartSuccess = createAction(
-  loadGetProductCartName + ' Success',
-  props<{
-    productCart: ProductCartModel;
-  }>()
+  loadGetProductCartName + ' Success'
 );
 
 export const loadGetProductCartFailure = createAction(

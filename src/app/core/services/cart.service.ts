@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { CartModel, CartStatus } from '@core/models/cart.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,20 +10,6 @@ import { map } from 'rxjs/operators';
 export class CartService {
   constructor(private firestore: AngularFirestore) {}
 
-  public test(): Observable<any> {
-    return this.firestore
-      .collection<any>(`products-cart`)
-      .snapshotChanges()
-      .pipe(
-        map((querySnapshot) => {
-          return querySnapshot.map((doc) => {
-            const data = doc.payload.doc.data();
-            console.log('data ', data);
-            return data;
-          });
-        })
-      );
-  }
   public getCurrentCart(): Observable<CartModel> {
     return this.firestore
       .collection<CartModel>(`carts`, (ref) =>
@@ -35,9 +21,10 @@ export class CartService {
           if (querySnapshot.length === 1) {
             const payloadDoc = querySnapshot[0].payload.doc;
             const data = payloadDoc.data();
+
             const cart: CartModel = {
               id: payloadDoc.id,
-              status: data.status
+              status: data.status,
             };
             return cart;
           }
@@ -49,20 +36,15 @@ export class CartService {
   public async addCart(cart: CartModel): Promise<void> {
     await this.firestore
       .collection('carts')
-      .add(cart);
+      .add(cart)
+      .then((doc) => (cart.id = doc.id));
   }
 
   public async updateCart(cart: CartModel): Promise<void> {
-    await this.firestore
-      .collection('carts')
-      .doc(cart.id)
-      .update(cart);
+    await this.firestore.collection('carts').doc(cart.id).update(cart);
   }
 
   public async deleteCart(cart: CartModel): Promise<void> {
-    await this.firestore
-      .collection('carts')
-      .doc(cart.id)
-      .delete();
+    await this.firestore.collection('carts').doc(cart.id).delete();
   }
 }
