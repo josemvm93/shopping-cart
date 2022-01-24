@@ -13,6 +13,8 @@ import { CoreModule } from '@core/core.module';
 import { ShopComponent } from './windows/shop/shop.component';
 import { FrameworkModule } from '../../framework/framework.module';
 import { CartComponent } from './windows/cart/cart.component';
+import { GetPendingCartEffects } from '@app/store/carts/effects/get-pending-cart.effects';
+import { cartFeatureKey, cartReducer } from '@app/store/carts/reducers/cart.reducer';
 
 @NgModule({
   declarations: [ShopComponent, CartComponent],
@@ -22,8 +24,9 @@ import { CartComponent } from './windows/cart/cart.component';
     SharedModule,
     CoreModule,
     FrameworkModule,
-    EffectsModule.forFeature([GetProductsEffects]),
+    EffectsModule.forFeature([GetProductsEffects, GetPendingCartEffects]),
     StoreModule.forFeature(productsFeatureKey, productReducer),
+    StoreModule.forFeature(cartFeatureKey, cartReducer)
   ],
 })
 export class ShoppingModule {}

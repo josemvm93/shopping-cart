@@ -4,10 +4,17 @@ import { SignInGuard } from './guards/sign-in.guard';
 import { SignOutGuard } from './guards/sign-out.guard';
 import { AuthService } from './services/auth.service';
 import { ProductsService } from './services/products.service';
+import { CartService } from './services/cart.service';
+import { ProductCartService } from './services/product-cart.service';
 
 const guards = [SignInGuard, SignOutGuard];
 
-const services = [AuthService, ProductsService];
+const services = [
+  AuthService,
+  ProductsService,
+  CartService,
+  ProductCartService,
+];
 
 @NgModule({
   declarations: [],

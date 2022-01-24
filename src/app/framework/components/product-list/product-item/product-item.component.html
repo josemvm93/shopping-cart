@@ -13,11 +13,11 @@
 <ng-template #actionSetting>
   <div nz-row>
     <div nz-col>
-      <nz-input-number [(ngModel)]="demoValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+      <nz-input-number [(ngModel)]="quantity" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
     </div>
     <div nz-col>
       <button nz-button class="login-form-button login-form-margin" nzType="primary"
-              (click)="addQuantity()"
+              (click)="addToCart()"
       >
         Add
       </button>

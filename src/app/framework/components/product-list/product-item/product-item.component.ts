@@ -4,20 +4,15 @@ import { ProductModel } from '@core/models/product.model';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss']
+  styleUrls: ['./product-item.component.scss'],
 })
 export class ProductItemComponent implements OnInit {
-
   @Input() item: ProductModel;
-  demoValue = 3;
+  quantity = 1;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  addQuantity(): void {
-
-  }
-
+  addToCart(): void {}
 }
