@@ -21,14 +21,12 @@ export class GetCurrentProductCartEffects {
       ofType(loadGetCurrentProductCart),
       mergeMap(() => {
         return this.productCartService.getCurrentProductCarts().pipe(
-          map((currentProductCarts) => {
-            console.log('currentProductCarts ', currentProductCarts);
-            return loadGetCurrentProductCartSuccess({ currentProductCarts });
-          }),
-          catchError((e) => {
-            console.log('currentProductCarts err', e);
-            return of(loadGetCurrentProductCartFailure({ error: `${e}` }));
-          })
+          map((currentProductCarts) =>
+            loadGetCurrentProductCartSuccess({ currentProductCarts })
+          ),
+          catchError((e) =>
+            of(loadGetCurrentProductCartFailure({ error: `${e}` }))
+          )
         );
       })
     );
