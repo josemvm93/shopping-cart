@@ -1,31 +1,24 @@
-<nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[sku, actionSetting]">
+<nz-card [nzCover]="coverTemplate" [nzTitle]="product.sku" [nzActions]="[actionSetting]" [nzExtra]="headerTemplate">
   <nz-card-meta
     [nzTitle]="product.name"
-    [nzDescription]="product.description"
+    [nzDescription]="description "
   ></nz-card-meta>
 </nz-card>
 <ng-template #coverTemplate>
   <img alt="product-item" src="assets/imgs/product-item.png" />
 </ng-template>
+<ng-template #headerTemplate>
+  <button alt="Delete" nz-button nzType="primary" nzShape="circle" nzDanger (click)="deleteProduct()">
+    <i nz-icon nzType="delete"></i>
+  </button>
+</ng-template>
 <ng-template #actionSetting>
-  <div nz-row>
-    <div nz-col>
-      <nz-input-number [(ngModel)]="quantity" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
-    </div>
-    <div nz-col>
-      <button nz-button class="login-form-button login-form-margin" nzType="primary"
-              [disabled]="loading$ | async"
-              (click)="addToCart()"
-      >
-        <nz-spin *ngIf="(loading$ | async)" nzSimple></nz-spin>
-        <span *ngIf="!(loading$ | async)">{{textButton}}</span>
-      </button>
-    </div>
-  </div>
-</ng-template>
-<ng-template #sku>
-  {{product.sku}}
-</ng-template>
-<ng-template #actionEllipsis>
-  <i nz-icon nzType="ellipsis"></i>
+  <nz-input-number [(ngModel)]="quantity" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+  <button nz-button class="login-form-button login-form-margin" nzType="primary"
+          [disabled]="loading$ | async"
+          (click)="addToCart()"
+  >
+    <nz-spin *ngIf="(loading$ | async)" nzSimple></nz-spin>
+    <span *ngIf="!(loading$ | async)">{{textButton}}</span>
+  </button>
 </ng-template>

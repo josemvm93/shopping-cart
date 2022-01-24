@@ -36,6 +36,10 @@ export class ProductItemComponent implements OnInit {
   productCartFound: ProductCartModel;
   textButton = 'Add';
 
+  get description(): string {
+    return this.product.description;
+  }
+
   constructor(private productCartStore: Store<ProductCartState>) {}
 
   ngOnInit(): void {}
@@ -64,4 +68,6 @@ export class ProductItemComponent implements OnInit {
       (productCart) => productCart.product_id === this.product.id
     );
   }
+
+  deleteProduct(): void {}
 }
