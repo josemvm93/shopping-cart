@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import { ProductsService } from './services/products.service';
 import { CartService } from './services/cart.service';
 import { ProductCartService } from './services/product-cart.service';
+import { SpinnerService } from './services/spinner.service';
 
 const guards = [SignInGuard, SignOutGuard];
 
@@ -14,6 +15,7 @@ const services = [
   ProductsService,
   CartService,
   ProductCartService,
+  SpinnerService,
 ];
 
 @NgModule({
