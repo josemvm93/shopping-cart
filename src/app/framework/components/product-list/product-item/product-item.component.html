@@ -18,7 +18,7 @@
               (click)="addToCart()"
       >
         <nz-spin *ngIf="(loading$ | async)" nzSimple></nz-spin>
-        <span *ngIf="!(loading$ | async)">Add</span>
+        <span *ngIf="!(loading$ | async)">{{textButton}}</span>
       </button>
     </div>
   </div>

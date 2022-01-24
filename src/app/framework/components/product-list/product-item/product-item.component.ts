@@ -10,6 +10,7 @@ import { ProductCartModel } from '@core/models/product-cart.model';
 import { ProductModel } from '@core/models/product.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { ProductListComponentMode } from '../product-list.component';
 
 @Component({
   selector: 'app-product-item',
@@ -19,18 +20,21 @@ import { Observable } from 'rxjs';
 export class ProductItemComponent implements OnInit {
   @Input() product: ProductModel;
   @Input() currentCart: ProductModel;
+  @Input() mode = ProductListComponentMode.ONE;
   @Input() set currentProductCarts(productCarts: ProductCartModel[]) {
     this.productCartFound = productCarts?.find(
       (productCart) => productCart.product_id === this.product.id
     );
     if (this.productCartFound) {
       this.quantity = this.productCartFound.quantity;
+      this.textButton = 'Modify';
     }
   }
 
   quantity = 1;
   loading$: Observable<boolean>;
   productCartFound: ProductCartModel;
+  textButton = 'Add';
 
   constructor(private productCartStore: Store<ProductCartState>) {}
 

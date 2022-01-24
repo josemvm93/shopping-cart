@@ -1,1 +1,6 @@
-<p>cart works!</p>
+<app-product-list
+    [products]="products$ | async"
+    [currentCart]="currentCart$ | async"
+    [currentProductCarts]="currentProductCarts$ | async"
+    [mode]="mode"
+></app-product-list>
