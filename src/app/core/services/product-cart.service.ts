@@ -27,7 +27,7 @@ export class ProductCartService {
   public getProductCartsByCart(cartId: string): Observable<ProductCartModel[]> {
     return this.firestore
       .collection<ProductCartModel>(this.path, (ref) =>
-        ref.where('cart_id', '==', cartId)
+        ref.where('cart_id', '==', cartId).orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
       .pipe(
@@ -40,6 +40,7 @@ export class ProductCartService {
               product_id: data.product_id,
               cart_id: data.cart_id,
               quantity: data.quantity,
+              createdAt: data.createdAt,
             };
             return productCartModel;
           });
@@ -50,7 +51,7 @@ export class ProductCartService {
   public getProductCarts(): Observable<ProductCartModel[]> {
     return this.firestore
       .collection<ProductCartModel>(this.path, (ref) =>
-        ref.orderBy('id', 'desc')
+        ref.orderBy('createdAt', 'desc')
       )
       .snapshotChanges()
       .pipe(
@@ -62,6 +63,7 @@ export class ProductCartService {
               cart_id: data.cart_id,
               product_id: data.product_id,
               quantity: data.quantity,
+              createdAt: data.createdAt,
             };
             return productCart;
           });

@@ -9,6 +9,7 @@ import { ProductModel } from '@core/models/product.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ProductListComponentMode } from '../product-list.component';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-product-item',
@@ -59,6 +60,7 @@ export class ProductItemComponent implements OnInit {
         quantity: this.quantity,
         cart_id: this.currentCart.id,
         product_id: this.product.id,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
       this.productCartStore.dispatch(loadAddProductCart({ productCart }));
     }
