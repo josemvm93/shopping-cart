@@ -27,7 +27,7 @@ export class ProductCartService {
   public getProductCartsByCart(cartId: string): Observable<ProductCartModel[]> {
     return this.firestore
       .collection<ProductCartModel>(this.path, (ref) =>
-        ref.where('cart_id', '==', cartId).orderBy('createdAt', 'desc')
+        ref.where('cart_id', '==', cartId).orderBy('createdAt', 'asc')
       )
       .snapshotChanges()
       .pipe(
